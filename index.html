@@ -221,9 +221,9 @@
     <article id="settings">
         <h1>Settings</h1>
         <div><span id="reset" class="icon_refresh icon"></span> Reset all views<br>&nbsp;</div>
-        <div><label>CruiseControl Feed URL<br><input type="text" name="feedUrlVal" id="feedUrlVal" value="/ccnet/XmlStatusReport.aspx" size="100"></label></div>
-        <div><label>CruiseControl Project URL<br><input type="text" name="projectUrlVal" id="projectUrlVal" value="/ccnet/server/local/project/{project}/ViewProjectReport.aspx" size="100"></label></div>
-        <div><label>CruiseControl Force Build URL<br><input type="text" name="forceUrlVal" id="forceUrlVal" value="/ccnet/ViewFarmReport.aspx?ForceBuild=true&amp;projectName={project}&amp;serverName=local" size="100"></label></div>
+        <div><label>CruiseControl Feed URL<br><input type="text" name="feedUrlVal" id="feedUrlVal" value="/guestAuth/app/rest/cctray/projects.xml" size="100"></label></div>
+        <div><label>CruiseControl Project URL<br><input type="text" name="projectUrlVal" id="projectUrlVal" value="" size="100"></label></div>
+        <div><label>CruiseControl Force Build URL<br><input type="text" name="forceUrlVal" id="forceUrlVal" value="" size="100"></label></div>
         <div><label>Polling Interval<br><input type="number" name="pollingIntervalVal" id="pollingIntervalVal" value="5000" min="2000"></label></div>
         <div><label>Number of columns<br><input type="number" name="columnsVal" id="columnsVal" value="5" min="2"></label></div>
     </article>
@@ -245,7 +245,7 @@
         var Cruiser = (function () {
             var settings = {};
             var updateCounter = 0;
-            var testMode = true;
+            var testMode = false;
             
             var resourcesEnGb = {
                 breakers: 'Breakers',
@@ -270,7 +270,7 @@
                 '</li>';
             
             var getProjectId = function ($project) {
-                return $project.attr('name').replace(/ /g, '').replace(/\(/g, '').replace(/\)/g, '');
+                return $project.attr('name').replace(/ /g, '').replace(/\(/g, '').replace(/\)/g, '').replace(/\:/g, '').replace(/\./g, '');
             }
             
             var createNewProject = function (id, $project) {
